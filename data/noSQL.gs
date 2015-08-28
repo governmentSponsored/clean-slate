@@ -23,7 +23,7 @@ function getKeys() {
 
 /*
   Get all the data from the database
-  Return it as JSON object
+  Return it as object
 */
 function queryAllData() {
   var properties = getKeys(),
@@ -56,12 +56,12 @@ function getSpreadsheetData() {
 }
 
 /*
-  Get all the spreadsheet data as an object
-  Post it to database
-  Return as object
+  Get all the spreadsheet data array
+  Post it to database in a batch process
+  Return successful post info as object
 */
 function postData() {
-	var properties = getKeys(),
+    var properties = getKeys(),
     url = 'https://api.parse.com/1/batch',
     path = '/1/classes/' + properties.class,
     postArray = getSpreadsheetData(),
@@ -91,7 +91,7 @@ function postData() {
       if(i!=len-1) {
         payload += ',';
       } else {
-        payload += ']}'
+        payload += ']}';
       }
     }
 	
@@ -111,5 +111,5 @@ function postData() {
                            .getContentText()
                            .parse(json);
 	  
-	  return cleanData;
+    return cleanData;
 }
